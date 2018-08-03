@@ -5,10 +5,15 @@ namespace SON\Models;
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SON\Notifications\UserCreated;
 
 class User extends Authenticatable implements TableInterface
 {
     use Notifiable;
+
+    const ROLE_ADMIN = 1;
+    const ROLE_TEACHER = 2;
+    const ROLE_STUDENT = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +21,7 @@ class User extends Authenticatable implements TableInterface
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'enrolment'
     ];
 
     /**
@@ -27,6 +32,48 @@ class User extends Authenticatable implements TableInterface
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function userable()
+    {
+        return $this->morphTo();
+    }
+
+    public static function createFully($data)
+    {
+        //cria password
+        $password = str_random(6);
+        $data['password'] = $password;
+        /** @var User $user */
+        $user = parent::create($data + ['enrolment' => str_random(6)]);
+
+        //cria matricula
+        self::assignEnrolment($user, self::ROLE_ADMIN);
+
+        $user->save();
+
+        //envia email de notificação de conta criada
+        if(isset($data['send_mail'])){
+
+            //gera token para recuperar password
+            $token = \Password::broker()->createToken($user);
+
+            $user->notify(new UserCreated($token));
+        }
+
+        return compact('user', 'password');
+    }
+
+    public static function assignEnrolment(User $user, $type)
+    {
+        $types = [
+            self::ROLE_ADMIN => 100000,
+            self::ROLE_TEACHER => 400000,
+            self::ROLE_STUDENT => 700000
+        ];
+
+        $user->enrolment = $types[$type] + $user->id;
+        return $user->enrolment;
+    }
 
     /**
      * A list of headers to be used when a table is displayed

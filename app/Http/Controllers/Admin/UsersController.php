@@ -52,10 +52,32 @@ class UsersController extends Controller
         }
 
         $data = $form->getFieldValues();
-        $password = str_random(6);
-        $data['password'] = $password;
-        User::create($data);
-        return redirect()->route('admin.users.index');
+
+        $result = User::createFully($data);
+
+        /**
+         * flash message
+         * Bloco da mensagem incluída em app.blade.php
+         */
+        $request->session()->flash('message', 'Usuário criado com sucesso');
+
+        /**
+         * pegar user / password
+         */
+        $request->session()->flash('user_created', [
+            'id' => $result['user']->id,
+            'password' => $result['password']
+        ]);
+
+        return redirect()->route('admin.users.show_details');
+    }
+
+    public function showDetails()
+    {
+        $userData = session('user_created');
+        $user = User::findOrFail($userData['id']);
+        $user->password = $userData['password'];
+        return view('admin.users.show_details', compact('user'));
     }
 
     /**
@@ -66,7 +88,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -77,19 +99,38 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $form = \FormBuilder::create(UserForm::class, [
+            'url' => route('admin.users.update', ['user' => $user->id]),
+            'method' => 'PUT',
+            'model' => $user
+        ]);
+
+        return view('admin.users.edit', compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \SON\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(User $user)
     {
-        //
+        /** @var Form $form */
+        $form = \FormBuilder::create(UserForm::class, [
+            'data' => ['id' => $user->id]
+        ]);
+
+        if(!$form->isValid()){
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getFieldValues();
+        $user->update($data);
+
+        session()->flash('message', 'Usuário editado com sucesso');
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -100,6 +141,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        session()->flash('message','Usuário excluído com sucesso');
+        return redirect()->route('admin.users.index');
     }
 }
