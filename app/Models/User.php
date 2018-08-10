@@ -33,6 +33,11 @@ class User extends Authenticatable implements TableInterface
         'password', 'remember_token',
     ];
 
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class)->withDefault();
+    }
+
     public function userable()
     {
         return $this->morphTo();
@@ -48,6 +53,7 @@ class User extends Authenticatable implements TableInterface
 
         //cria matricula
         self::assignEnrolment($user, self::ROLE_ADMIN);
+        self::assingRole($user, $data['type']);
 
         $user->save();
 
@@ -73,6 +79,19 @@ class User extends Authenticatable implements TableInterface
 
         $user->enrolment = $types[$type] + $user->id;
         return $user->enrolment;
+    }
+
+    public static function assingRole(User $user, $type)
+    {
+        $types = [
+            self::ROLE_ADMIN => Admin::class,
+            self::ROLE_TEACHER => Teacher::class,
+            self::ROLE_STUDENT => Student::class
+        ];
+
+        $model = $types[$type];
+        $model = $model::create([]);
+        $user->userable()->associate($model);
     }
 
     /**

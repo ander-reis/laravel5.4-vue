@@ -27,21 +27,20 @@
             $navbar = Navbar::withBrand(config('app.name'), route('admin.dashboard'))->inverse();
 
                 if(Auth::check()){
-                    //if(\Gate::allows('admin')){
+                    if(\Gate::allows('admin')){
                         $arrayLinks = [
                             ['link' => route('admin.users.index'), 'title' => 'Usuário'],
                             //['link' => route('admin.subjects.index'), 'title' => 'Disciplina'],
                             //['link' => route('admin.class_informations.index'), 'title' => 'Turma'],
                         ];
                         $navbar->withContent(Navigation::links($arrayLinks));
-                    //}
+                    }
                     $arrayLinksRight = [
                         [
                             Auth::user()->name,
                             [
                                 [
-                                    //'link' => route('admin.users.settings.edit'),
-                                    'link' => route('admin.users.index'),
+                                    'link' => route('admin.users.settings.edit'),
                                     'title' => 'Configurações'
                                 ],
                                 [
