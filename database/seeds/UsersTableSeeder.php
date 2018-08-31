@@ -15,20 +15,26 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@user.com',
             'enrolment' => 100000
         ])->each(function(\SON\Models\User $user){
+            $profile = factory(\SON\Models\UserProfile::class)->make();
+            $user->profile()->create($profile->toArray());
             \SON\Models\User::assingRole($user, \SON\Models\User::ROLE_ADMIN);
             $user->save();
         });
 
-        factory(\SON\Models\User::class, 10)->create()->each(function(\SON\Models\User $user){
+        factory(\SON\Models\User::class, 100)->create()->each(function(\SON\Models\User $user){
             if(!$user->userable){
+                $profile = factory(\SON\Models\UserProfile::class)->make();
+                $user->profile()->create($profile->toArray());
                 \SON\Models\User::assingRole($user, \SON\Models\User::ROLE_TEACHER);
                 \SON\Models\User::assignEnrolment(new \SON\Models\User(), \SON\Models\User::ROLE_TEACHER);
                 $user->save();
             }
         });
 
-        factory(\SON\Models\User::class, 10)->create()->each(function(\SON\Models\User $user){
+        factory(\SON\Models\User::class, 100)->create()->each(function(\SON\Models\User $user){
             if(!$user->userable){
+                $profile = factory(\SON\Models\UserProfile::class)->make();
+                $user->profile()->create($profile->toArray());
                 \SON\Models\User::assingRole($user, \SON\Models\User::ROLE_STUDENT);
                 \SON\Models\User::assignEnrolment(new \SON\Models\User(), \SON\Models\User::ROLE_STUDENT);
                 $user->save();

@@ -10,4 +10,17 @@ class Student extends Model
     {
         return $this->morphOne(User::class, 'userable');
     }
+
+    /**
+     * Serializa os dados e incluser user na consulta do student
+     * @return array
+     */
+    public function toArray()
+    {
+        $data = parent::toArray();
+        //chama relation e esconde dois campos
+        $this->user->makeHidden('userable_type', 'userable_id');
+        $data['user'] = $this->user;
+        return $data;
+    }
 }

@@ -43,7 +43,23 @@ Route::prefix('admin')->group(function(){
 
         Route::resource('users', 'UsersController');
 
+        Route::resource('subjects', 'SubjectsController');
+        Route::group(['prefix' => 'class_informations/{class_information}', 'as' => 'class_informations.'],
+            function () {
+                Route::resource('students', 'ClassStudentsController', ['only' => ['index', 'store', 'destroy']]);
+                Route::resource('teachings', 'ClassTeachingsController',['only' => ['index','store','destroy']]);
+            });
+        Route::resource('class_informations', 'ClassInformationsController');
 
+    });
+
+    Route::group([
+        'namespace' => 'Api\\',
+        'as' => 'admin.api.',
+        'middleware' => ['auth', 'can:admin'],
+        'prefix' => 'api'
+    ], function(){
+        Route::name('students.index')->get('students', 'StudentsController@index');
     });
 });
 

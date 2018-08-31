@@ -10,3 +10,12 @@ composer require kris/laravel-form-builder
 bootstrapper:
 https://github.com/patricktalmadge/bootstrapper
 composer require patricktalmadge/bootstrapper
+
+JS
+select2
+https://select2.org/
+npm install select2 --save-dev
+
+PNotify
+https://sciactive.com/pnotify/
+npm install pnotify@3.2.0 --save-dev
