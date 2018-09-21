@@ -14,9 +14,9 @@ class ClassTeaching extends Model
         'teacher_id'
     ];
 
-    public function classTests(){
-        return $this->hasMany(ClassTest::class);
-    }
+//    public function classTests(){
+//        return $this->hasMany(ClassTest::class);
+//    }
 
     public function subject(){
         return $this->belongsTo(Subject::class);
