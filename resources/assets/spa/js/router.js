@@ -14,3 +14,5 @@ new Vue({
         'app': AppComponent
     }
 });
+
+export default router;
