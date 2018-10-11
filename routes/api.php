@@ -22,8 +22,20 @@ Route::group([
 
     Route::group(['middleware' => 'auth.renew'], function(){
         Route::get('/user', function (Request $request) {
-            return $request->user();
+            return \Auth::user();
         });
+
+        Route::group([
+            'prefix' => 'teacher',
+            'as' => 'teacher.',
+            'namespace' => 'Teacher\\',
+            'middleware' => 'can:teacher'
+        ], function(){
+            Route::resource('class_informations', 'ClassInformationsController', ['only' => ['index', 'show']]);
+        });
+//        Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'namespace' => 'Teacher'], function(){
+//
+//        });
     });
 
     Route::group(['middleware' => 'auth:api'], function(){

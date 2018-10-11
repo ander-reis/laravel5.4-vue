@@ -22,6 +22,18 @@ class UsersTableSeeder extends Seeder
         });
 
         factory(\SON\Models\User::class)->create([
+            'email' => 'student@user.com',
+            'enrolment' => 700000
+        ])->each(function(\SON\Models\User $user){
+            if(!$user->userable) {
+                $profile = factory(\SON\Models\UserProfile::class)->make();
+                $user->profile()->create($profile->toArray());
+                \SON\Models\User::assingRole($user, \SON\Models\User::ROLE_STUDENT);
+                $user->save();
+            }
+        });
+
+        factory(\SON\Models\User::class)->create([
             'email' => 'teacher@user.com',
             'enrolment' => 400000
         ])->each(function(\SON\Models\User $user){

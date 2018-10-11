@@ -1,31 +1,19 @@
 <template src="../templates/menu.html"></template>
 
 <script type="text/javascript">
-    import store from '../../store/store'
-    import LogoutComponent from '../Logout.vue';
+    import authMixin from '../../mixins/auth.mixin';
+    import menuMixin from '../../mixins/menu.mixin';
 
     export default {
-        components: {
-            'logout': LogoutComponent
-        },
+        mixins: [menuMixin],
         data(){
             return {
                 menus: [
-                    {name: "Minhas turmas", routeName: 'class_informations.list'}
+                    {name: "Minhas turmas", routeName: 'class_teachings.list'}
                 ],
-                brandRouteName: 'class_informations.list'
+                brandRouteName: 'class_teachings.list'
             }
         },
-        computed: {
-            isAuth(){
-                return store.state.auth.check;
-            },
-            user(){
-                return store.state.auth.user;
-            },
-            username(){
-              return this.isAuth ? store.state.auth.user.name : null;
-            },
-        }
+
     };
 </script>

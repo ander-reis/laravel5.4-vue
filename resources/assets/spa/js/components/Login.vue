@@ -53,7 +53,8 @@
             login(){
                 store.dispatch('auth/login', this.user)
                     .then(() => {
-                        this.$router.push({name: 'teacher.class_teachings.list'});
+                        //this.$router.push({name: 'teacher.class_teachings.list'});
+                        this.$router.push({name: 'class_teachings.list'});
                     });
             }
         }
