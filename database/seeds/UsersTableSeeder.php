@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder
             }
         });
 
-        factory(\SON\Models\User::class, 100)->create()->each(function(\SON\Models\User $user){
+        factory(\SON\Models\User::class, 10)->create()->each(function(\SON\Models\User $user){
             if(!$user->userable){
                 $profile = factory(\SON\Models\UserProfile::class)->make();
                 $user->profile()->create($profile->toArray());
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
             }
         });
 
-        factory(\SON\Models\User::class, 100)->create()->each(function(\SON\Models\User $user){
+        factory(\SON\Models\User::class, 10)->create()->each(function(\SON\Models\User $user){
             if(!$user->userable){
                 $profile = factory(\SON\Models\UserProfile::class)->make();
                 $user->profile()->create($profile->toArray());

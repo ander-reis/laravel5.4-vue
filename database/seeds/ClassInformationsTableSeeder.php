@@ -14,7 +14,7 @@ class ClassInformationsTableSeeder extends Seeder
         $students = \SON\Models\Student::all();
         $teachers = \SON\Models\Teacher::all();
         $subjects = \SON\Models\Subject::all();
-        factory(\SON\Models\ClassInformation::class,50)
+        factory(\SON\Models\ClassInformation::class, 10)
             ->create()
             ->each(function (\SON\Models\ClassInformation $model) use ($students, $teachers, $subjects){
                 /** @var Illuminate\Support\Collection $studentsCol */

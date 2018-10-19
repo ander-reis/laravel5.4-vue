@@ -32,6 +32,7 @@
 
 <script type="text/javascript">
     import store from '../../store/store';
+
     export default {
         computed: {
             classTeachings() {
