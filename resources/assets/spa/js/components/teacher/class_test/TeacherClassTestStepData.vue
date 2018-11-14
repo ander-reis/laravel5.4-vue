@@ -52,11 +52,12 @@
             let classTeachingId = this.$route.params.class_teaching;
             store.dispatch('teacher/classTeaching/get', classTeachingId);
 //            if (this.$route.name == 'teacher.class_tests.update_data') {
-//                store.dispatch('teacher/classTest/get', {
-//                    classTeachingId: this.$route.params.class_teaching,
-//                    classTestId: this.$route.params.class_test
-//                })
-//            }
+            if (this.$route.name == 'class_tests.update_data') {
+                store.dispatch('teacher/classTest/get', {
+                    classTeachingId: this.$route.params.class_teaching,
+                    classTestId: this.$route.params.class_test
+                })
+            }
         },
         methods: {
             goToQuestions() {

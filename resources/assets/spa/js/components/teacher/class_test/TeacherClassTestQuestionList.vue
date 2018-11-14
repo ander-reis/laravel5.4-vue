@@ -2,9 +2,9 @@
     <div>
         <div class="panel panel-primary" v-for="(question,index) in classTest.questions">
             <div class="panel-heading">
-                <!--<button class="btn btn-info btn-sm" @click.prevent="editQuestion(question)">-->
-                    <!--<span class="glyphicon glyphicon-pencil"></span>-->
-                <!--</button>-->
+                <button class="btn btn-info btn-sm" @click.prevent="editQuestion(question)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
                 <button class="btn btn-danger btn-sm" @click.prevent="deleteQuestion(index)">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
@@ -32,9 +32,9 @@
             },
         },
         methods: {
-//            editQuestion(question){
-//                store.commit('teacher/classTest/setQuestion',question);
-//            },
+            editQuestion(question){
+                store.commit('teacher/classTest/setQuestion', question);
+            },
             deleteQuestion(index) {
                 store.commit('teacher/classTest/deleteQuestion', index);
             }

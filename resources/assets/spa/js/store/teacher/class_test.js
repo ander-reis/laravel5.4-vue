@@ -48,22 +48,22 @@ const mutations = {
     //     }
     // },
     addQuestion(state){
-        // if(typeof state.question.id =="undefined"){
+        if(typeof state.question.id =="undefined"){
             state.classTest.questions.push(state.question);
-        // }
+        }
         state.question = newQuestion();
         // state.choiceTrue = null;
     },
-    // setQuestion(state,question){
-    //     question.choices = question.choices.map((item) => {
-    //         item.true = item.true?'true':false;
-    //         if(item.true){
-    //             state.choiceTrue = item;
-    //         }
-    //         return item;
-    //     });
-    //     state.question = question;
-    // },
+    setQuestion(state, question){
+        question.choices = question.choices.map((item) => {
+            item.true = item.true?'true':false;
+            if(item.true){
+                state.choiceTrue = item;
+            }
+            return item;
+        });
+        state.question = question;
+    },
     deleteQuestion(state, index){
         state.classTest.questions.splice(index, 1);
     },
@@ -94,14 +94,14 @@ const actions = {
                 context.commit('setClassTest', response.data);
             })
     },
-    // create(context, classTeachingId){
-    //     return Teacher.classTest.save({class_teaching:classTeachingId},context.state.classTest);
-    // },
-    // update(context, {classTeachingId,classTestId}){
-    //     return Teacher.classTest.update({
-    //         class_teaching:classTeachingId,class_test:classTestId
-    //     },context.state.classTest);
-    // },
+    create(context, classTeachingId){
+        return Teacher.classTest.save({class_teaching: classTeachingId}, context.state.classTest);
+    },
+    update(context, {classTeachingId, classTestId}){
+        return Teacher.classTest.update({
+            class_teaching:classTeachingId, class_test:classTestId
+        }, context.state.classTest);
+    },
     // 'delete'(context,{classTeachingId,classTestId}){
     //     return Teacher.classTest.delete({
     //         class_teaching:classTeachingId,class_test:classTestId

@@ -29,9 +29,9 @@
                     <!--<td>{{classTest.total_questions}}</td>-->
                     <!--<td>{{classTest.total_points}}</td>-->
                     <td>
-                        <!--<router-link :to="routeClassTestEdit(classTest.id)">-->
-                            <!--Editar-->
-                        <!--</router-link> |-->
+                        <router-link :to="routeClassTestEdit(classTest.id)">
+                            Editar
+                        </router-link> |
                         <!--<a href="#" @click.prevent="deleteClassTest(classTest)">-->
                             <!--Excluir-->
                         <!--</a>-->
@@ -81,15 +81,16 @@
             store.dispatch('teacher/classTest/query', classTeachingId);
         },
         methods: {
-//            routeClassTestEdit(classTestId){
-//                return {
+            routeClassTestEdit(classTestId){
+                return {
 //                    name: 'teacher.class_tests.update_data',
-//                    params: {
-//                        class_teaching: this.$route.params.class_teaching,
-//                        class_test: classTestId
-//                    }
-//                }
-//            },
+                    name: 'class_tests.update_data',
+                    params: {
+                        class_teaching: this.$route.params.class_teaching,
+                        class_test: classTestId
+                    }
+                }
+            },
 //            deleteClassTest(classTest){
 //                if(confirm('Deseja excluir esta avaliação')){
 //                    store.dispatch('teacher/classTest/delete',{

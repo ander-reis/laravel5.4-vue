@@ -46,6 +46,9 @@ class ClassTestsController extends Controller
         $result = ClassTest::byTeacher(\Auth::user()->userable->id)
             ->findOrFail($classTest->id);
 
+        $array = $result->toArray();
+        $array['questions'] = $result->questions;
+
         return $result;
     }
 
