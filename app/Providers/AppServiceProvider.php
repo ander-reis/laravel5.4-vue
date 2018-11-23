@@ -15,7 +15,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /**
+         * regra de validação personalizado
+         *
+         */
+        \Validator::extend('choice_true', function ($attributes, $value, $parameters, $validator){
+            $items = collect($value)->filter(function ($item){
+                return isset($item['true']) && $item['true'] !== false;
+            });
+            return $items->count() === 1;
+        });
     }
 
     /**

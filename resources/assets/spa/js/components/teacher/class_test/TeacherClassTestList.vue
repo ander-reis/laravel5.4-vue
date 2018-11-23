@@ -26,15 +26,15 @@
                     <td>{{classTest.name}}</td>
                     <td>{{classTest.date_start}}</td>
                     <td>{{classTest.date_end}}</td>
-                    <!--<td>{{classTest.total_questions}}</td>-->
-                    <!--<td>{{classTest.total_points}}</td>-->
+                    <td>{{classTest.total_questions}}</td>
+                    <td>{{classTest.total_points}}</td>
                     <td>
                         <router-link :to="routeClassTestEdit(classTest.id)">
                             Editar
                         </router-link> |
-                        <!--<a href="#" @click.prevent="deleteClassTest(classTest)">-->
-                            <!--Excluir-->
-                        <!--</a>-->
+                        <a href="#" @click.prevent="deleteClassTest(classTest)">
+                            Excluirphp
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -91,14 +91,14 @@
                     }
                 }
             },
-//            deleteClassTest(classTest){
-//                if(confirm('Deseja excluir esta avaliação')){
-//                    store.dispatch('teacher/classTest/delete',{
-//                        classTeachingId: this.$route.params.class_teaching,
-//                        classTestId: classTest.id
-//                    })
-//                }
-//            }
+            deleteClassTest(classTest){
+                if(confirm('Deseja excluir esta avaliação')){
+                    store.dispatch('teacher/classTest/delete',{
+                        classTeachingId: this.$route.params.class_teaching,
+                        classTestId: classTest.id
+                    })
+                }
+            }
         }
     }
 </script>

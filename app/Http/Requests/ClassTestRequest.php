@@ -24,6 +24,8 @@ class ClassTestRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
+     * Regra de validação personalizado choice_true está em Providers/AppServiceProvider
+     *
      * @return array
      */
     public function rules()
@@ -36,7 +38,6 @@ class ClassTestRequest extends FormRequest
             'questions.*.question' => 'required',
             'questions.*.point' => 'required|numeric',
             'questions.*.choices' => 'required|array|choice_true',
-            'questions.*.choices' => 'required|array',
             'questions.*.choices.*.choice' => 'required',
         ];
     }
