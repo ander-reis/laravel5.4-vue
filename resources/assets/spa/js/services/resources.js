@@ -47,7 +47,7 @@ const Teacher = {
 };
 
 const Student = {
-
+    classInformation: Vue.resource('student/class_informations/{class_information}'),
 };
 
 export {

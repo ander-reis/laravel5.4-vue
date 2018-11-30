@@ -11,5 +11,8 @@ export default {
         username(){
             return this.isAuth ? store.state.auth.user.name : null;
         },
+        isTeacher(){
+            return store.getters['auth/isTeacher']
+        }
     }
 }

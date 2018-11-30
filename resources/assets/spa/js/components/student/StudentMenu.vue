@@ -9,11 +9,10 @@
         data(){
             return {
                 menus: [
-                    {name: "Minhas turmas", routeName: 'teacher.class_teachings.list'}
+                    {name: "Minhas Turmas", routeName: 'student.class_informations.list'}
                 ],
-                brandRouteName: 'teacher.class_teachings.list'
+                brandRouteName: 'student.class_informations.list'
             }
         },
-
     };
 </script>

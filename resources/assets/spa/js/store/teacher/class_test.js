@@ -3,7 +3,7 @@ import {Teacher} from '../../services/resources';
 function newChoice(){
     return {
         choice: '',
-        // 'true': false
+        'true': false
     };
 }
 
@@ -29,7 +29,7 @@ const state = {
         questions: []
     },
     question: newQuestion(),
-    // choiceTrue: null
+    choiceTrue: null
 };
 
 const mutations = {
@@ -52,7 +52,7 @@ const mutations = {
             state.classTest.questions.push(state.question);
         }
         state.question = newQuestion();
-        // state.choiceTrue = null;
+        state.choiceTrue = null;
     },
     setQuestion(state, question){
         question.choices = question.choices.map((item) => {
@@ -73,12 +73,12 @@ const mutations = {
     deleteChoice(state, index){
         state.question.choices.splice(index, 1);
     },
-    // setChoiceTrue(state,choice){
-    //     if(state.choiceTrue){
-    //         state.choiceTrue.true = false;
-    //     }
-    //     state.choiceTrue = choice;
-    // }
+    setChoiceTrue(state, choice){
+        if(state.choiceTrue){
+            state.choiceTrue.true = false;
+        }
+        state.choiceTrue = choice;
+    }
 };
 
 const actions = {

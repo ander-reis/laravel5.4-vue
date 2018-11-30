@@ -39,12 +39,12 @@ class ClassInformation extends Model implements TableInterface
         });
     }
 
-//    public function scopeByStudent($query, $studentId)
-//    {
-//        return $query->whereHas('students', function ($query) use($studentId){
-//            $query->where('student_id', $studentId);
-//        });
-//    }
+    public function scopeByStudent($query, $studentId)
+    {
+        return $query->whereHas('students', function ($query) use($studentId){
+            $query->where('student_id', $studentId);
+        });
+    }
 
     /**
      * A list of headers to be used when a table is displayed
