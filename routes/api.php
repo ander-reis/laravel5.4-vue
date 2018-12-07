@@ -44,7 +44,14 @@ Route::group([
             'namespace' => 'Student\\',
             'middleware' => 'can:student'
         ], function(){
+            Route::group(['prefix' => 'class_informations/{class_information}', 'as' => 'class_informations.'], function(){
+                Route::resource('class_teachings', 'ClassTeachingsController', ['only' => ['index', 'show']]);
+            });
+            Route::group(['prefix' => 'class_teachings/{class_teaching}', 'as' => 'class_teachings'], function(){
+                Route::resource('class_tests', 'ClassTestsController', ['only' => ['index', 'show']]);
+            });
             Route::resource('class_informations', 'ClassInformationsController', ['only' => ['index', 'show']]);
+
         });
     });
 

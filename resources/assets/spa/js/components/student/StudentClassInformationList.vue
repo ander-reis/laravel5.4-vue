@@ -17,7 +17,9 @@
                     <td>{{classInformation.date_end | dateBr}}</td>
                     <td>{{classInformation | classInformationAlias}}</td>
                     <td>
-                        Disciplinas
+                        <router-link :to="{name: 'student.class_teachings.list', params: {class_information: classInformation.id}}">
+                            Disciplinas
+                        </router-link>
                     </td>
                 </tr>
                 </tbody>

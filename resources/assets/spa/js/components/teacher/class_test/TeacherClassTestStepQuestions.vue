@@ -38,9 +38,9 @@
         },
         mixins: [classInformationMixin],
         computed: {
-//            storeType() {
-//                return 'teacher';
-//            },
+           storeType() {
+               return 'teacher';
+           },
             classTest() {
                 return this.$deepModel('teacher.classTest.classTest');
             },

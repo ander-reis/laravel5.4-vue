@@ -31,6 +31,17 @@ class ClassTest extends Model
         });
     }
 
+    public function scopeByStudent($query, $studentId)
+    {
+        return $query->whereHas('classTeaching', function ($query) use ($studentId) {
+            $query->whereHas('classInformation', function ($query) use ($studentId) {
+                $query->whereHas('students', function ($query) use ($studentId) {
+                    $query->where('student_id', $studentId);
+                });
+            });
+        });
+    }
+
     protected static function createQuestion($question)
     {
         /** @var Question $newQuestion */

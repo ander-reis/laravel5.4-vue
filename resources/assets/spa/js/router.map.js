@@ -70,12 +70,36 @@ export default [
             },
             {
                 name: 'student.class_informations.list',
-                path: '/classes',
+                path: 'classes',
                 component: require('./components/student/StudentClassInformationList.vue'),
                 meta: {
                     auth: true
                 }
-            }
+            },
+            {
+                name: 'student.class_teachings.list',
+                path: 'classes/:class_information/teachings',
+                component: require('./components/student/StudentClassTeachingList.vue'),
+                meta: {
+                    auth: true
+                }
+            },
+            {
+                name: 'student.class_tests.list',
+                path: 'classes/:class_information/teachings/:class_teaching/tests',
+                component: require('./components/student/class_test/StudentClassTestList.vue'),
+                meta: {
+                    auth: true
+                }
+            },
+            {
+                name: 'student.class_tests.do',
+                path: 'classes/:class_information/teachings/:class_teaching/tests/:class_test/do',
+                component: require('./components/student/class_test/StudentClassTestDo.vue'),
+                meta: {
+                    auth: true
+                }
+            },
         ]
     },
     {
