@@ -5,32 +5,29 @@
                 <div class="page-header">
                     <h3>Avaliação de <br>
                         <small>
-                            <!--<strong>Turma: </strong> {{classInformationName}}-->
-                            <strong>Turma: </strong>
+                            <strong>Turma: </strong> {{classInformationName}}
                         </small>
                         <br>
                         <small>
-                            <!--<strong>Pontos: </strong> {{classTestPoints}}-->
+                            <strong>Pontos: </strong> {{classTestPoints}}
                         </small>
+                        <br>
                         <small>
-                            <!--<strong>Início: </strong> {{classTestDateStart}}-->
-                            <strong>Início: </strong>
+                            <strong>Início: </strong> {{classTestDateStart}}
                         </small>
+                        <br>
                         <small>
-                            <!--<strong>Fim: </strong> {{classTestDateEnd}}-->
-                            <strong>Fim: </strong>
+                            <strong>Fim: </strong> {{classTestDateEnd}}
                         </small>
                     </h3>
                 </div>
-                <!--<button class="btn btn-primary btn-block" @click="save">Salvar</button>-->
-                <button class="btn btn-primary btn-block">Salvar</button>
+                <button class="btn btn-primary btn-block" @click="save">Salvar</button>
             </div>
             <div class="col-md-9" v-if="classTest">
                 <ol class="nav nav-pills">
                     <li v-for="(question, index) in classTest.questions">
                         <a href="#" @click.prevent="setQuestion(question)">
-                            <!--<span class="label" :class="defineColorQuestion(question)">-->
-                            <span class="label label-default">
+                            <span class="label" :class="defineColorQuestion(question)">
                                 Quest. #{{index+1}}
                             </span>
                         </a>
@@ -38,6 +35,7 @@
                 </ol>
             </div>
         </div>
+        <student-class-test-question></student-class-test-question>
     </div>
 </template>
 
@@ -48,7 +46,7 @@
     export default {
         name: "StudentClassTestDo",
         components: {
-            // 'student-class-test-question': require('./StudentClassTestQuestion.vue')
+            'student-class-test-question': require('./StudentClassTestQuestion.vue')
         },
         mixins: [classInformationMixin],
         computed: {
@@ -58,24 +56,32 @@
             classTest() {
                 return store.state.student.classTest.classTest;
             },
-            // classTestPoints() {
-            //     let classTest = this.classTest;
-            //     return classTest ? classTest.total_points : 0;
-            // },
-            // classTestDateStart() {
-            //     let classTest = this.classTest;
-            //     return classTest ? this.$options.filters.dateTimeBr(classTest.date_start) : '';
-            // },
-            // classTestDateEnd() {
-            //     let classTest = this.classTest;
-            //     return classTest ? this.$options.filters.dateTimeBr(classTest.date_end) : '';
-            // },
+            classTestPoints() {
+                let classTest = this.classTest;
+                return classTest ? classTest.total_points : 0;
+            },
+            classTestDateStart() {
+                let classTest = this.classTest;
+                return classTest ? this.$options.filters.dateTimeBr(classTest.date_start) : '';
+            },
+            classTestDateEnd() {
+                let classTest = this.classTest;
+                return classTest ? this.$options.filters.dateTimeBr(classTest.date_end) : '';
+            },
             // studentClassTest(){
             //     return store.state.student.studentClassTest.studentClassTest;
             // },
             // choices(){
             //     return this.studentClassTest.choices;
             // }
+
+            /**
+             * depois retirar
+             * @returns {state.studentClassTest.choices|{}}
+             */
+            choices(){
+                return store.state.student.studentClassTest.studentClassTest.choices;
+            },
         },
         mounted() {
             let classTeachingId = this.$route.params.class_teaching;
@@ -84,27 +90,27 @@
             // let studentClassTestId = this.$route.params.student_class_test;
             store.dispatch('student/classTeaching/get', {classInformationId, classTeachingId});
             store.dispatch('student/classTest/get', {classTeachingId, classTestId})
-            //     .then(() => {
-            //         let question = this.classTest.questions[0];
-            //         store.commit('student/classTest/setQuestion',question);
-            //     });
+                .then(() => {
+                    let question = this.classTest.questions[0];
+                    store.commit('student/classTest/setQuestion',question);
+                });
             // if(studentClassTestId){
             //     store.dispatch('student/studentClassTest/get',{classTestId,studentClassTestId});
             // }
         },
         methods: {
-            // setQuestion(question){
-            //     store.commit('student/classTest/setQuestion',question);
-            // },
-            // defineColorQuestion(question){
-            //     return {
-            //         'label-default': !this.choices.hasOwnProperty(question.id),
-            //         'label-primary': this.choices.hasOwnProperty(question.id),
-            //         'label-success': store.getters['student/classTest/isTrue'](question,this.choices[question.id]),
-            //         'label-danger': this.studentClassTest.id && !store.getters['student/classTest/isTrue'](question,this.choices[question.id])
-            //     }
-            // },
-            // save() {
+            setQuestion(question){
+                store.commit('student/classTest/setQuestion', question);
+            },
+            defineColorQuestion(question){
+                return {
+                    'label-default': !this.choices.hasOwnProperty(question.id),
+                    'label-primary': this.choices.hasOwnProperty(question.id),
+                    // 'label-success': store.getters['student/classTest/isTrue'](question,this.choices[question.id]),
+                    // 'label-danger': this.studentClassTest.id && !store.getters['student/classTest/isTrue'](question,this.choices[question.id])
+                }
+            },
+            save() {
             //     let classTeachingId = this.$route.params.class_teaching;
             //     let classInformationId = this.$route.params.class_information;
             //     let afterSave = () => {
@@ -138,7 +144,7 @@
             //     };
             //     store.dispatch('student/studentClassTest/create', this.$route.params.class_test)
             //         .then(afterSave, error);
-            // }
+            }
         }
     }
 </script>

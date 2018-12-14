@@ -4,6 +4,7 @@ const state = {
     classTests: [],
     classTest: null,
     question: null,
+    questionIndex: 0
 };
 
 const mutations = {
@@ -15,6 +16,10 @@ const mutations = {
     },
     setQuestion(state, question){
         state.question = question;
+        let index = state.classTest.questions.findIndex((item) => {
+            return item.id == question.id;
+        });
+        state.questionIndex = index;
     },
 };
 

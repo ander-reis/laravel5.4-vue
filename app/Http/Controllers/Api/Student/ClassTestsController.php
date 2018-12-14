@@ -34,8 +34,17 @@ class ClassTestsController extends Controller
             ->findOrFail($id);
 
         $array = $result->toArray();
-        $array['questions'] = $result->questions;
 
-        return $result;
+        $array['questions'] = array_map(function($question){
+
+            $question['choices'] = array_map(function($choice){
+                unset($choice['true']);
+                return $choice;
+            }, $question['choices']->toArray());
+
+            return $question;
+        }, $result->questions->toArray());
+
+        return $array;
     }
 }
