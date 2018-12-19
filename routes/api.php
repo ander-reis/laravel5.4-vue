@@ -50,6 +50,9 @@ Route::group([
             Route::group(['prefix' => 'class_teachings/{class_teaching}', 'as' => 'class_teachings'], function(){
                 Route::resource('class_tests', 'ClassTestsController', ['only' => ['index', 'show']]);
             });
+            Route::group(['prefix' => 'class_tests/{class_test}', 'as' => 'class_tests'], function(){
+                Route::resource('do', 'StudentClassTestsController', ['only' => ['show', 'store']]);
+            });
             Route::resource('class_informations', 'ClassInformationsController', ['only' => ['index', 'show']]);
 
         });
