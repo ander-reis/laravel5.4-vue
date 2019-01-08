@@ -2,9 +2,10 @@
 
 namespace SON\Http\Controllers\Api\Student;
 
-use Illuminate\Http\Request;
 use SON\Http\Controllers\Controller;
+use SON\Http\Requests\StudentClassTestRequest;
 use SON\Models\ClassTest;
+use SON\Models\StudentClassTest;
 
 class StudentClassTestsController extends Controller
 {

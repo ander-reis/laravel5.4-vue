@@ -4,10 +4,10 @@ namespace SON\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use SON\Models\ClassTeaching;
+use Illuminate\Validation\Rule;
 use SON\Models\ClassTest;
 
-class ClassTestRequest extends FormRequest
+class StudentClassTestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,6 +30,7 @@ class ClassTestRequest extends FormRequest
             'class_test_id' => $classTest->id,
             'date_start' => $classTest->date_start,
             'date_end' => $classTest->date_end,
+//            'date_end' => '2018-12-20T14:35',
             'date' => (new Carbon())->format(\DateTime::ISO8601)
         ];
         /**
@@ -63,7 +64,7 @@ class ClassTestRequest extends FormRequest
                 Rule::unique('student_class_tests')
                     ->where('student_id', \Auth::user()->userable->id)
             ],
-            //'date' => 'after_or_equal:date_start|before_or_equal:date_end',
+//            'date' => 'after_or_equal:date_start|before_or_equal:date_end',
             'date' => 'before_or_equal:date_end',
             'choices' => 'required|array',
             'choices.*.question_id' => [

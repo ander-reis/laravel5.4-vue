@@ -4,11 +4,9 @@ namespace SON\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use SON\Http\Controllers\Controller;
-use SON\Http\Requests\ClassStudentRequest;
 use SON\Http\Requests\ClassTeachingRequest;
 use SON\Models\ClassInformation;
 use SON\Models\ClassTeaching;
-use SON\Models\Student;
 
 class ClassTeachingsController extends Controller
 {
@@ -17,7 +15,7 @@ class ClassTeachingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,ClassInformation $class_information)
+    public function index(Request $request, ClassInformation $class_information)
     {
         if(!$request->ajax()) {
             return view('admin.class_informations.class_teaching', compact('class_information'));

@@ -15,12 +15,11 @@ class CreateStudentClassTestsTable extends Migration
     {
         Schema::create('student_class_tests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('student_id');
+            $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
             $table->integer('class_test_id')->unsigned();
-            $table->foreign('claa_test_id')->references('id')->on('class_tests');
+            $table->foreign('class_test_id')->references('id')->on('class_tests');
             $table->float('point')->default(0);
-
             /**
              * chave de unicidade
              * não pode haver id repetido

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use SON\Http\Controllers\Controller;
 use SON\Models\ClassTeaching;
 use SON\Models\ClassTest;
+use SON\Models\StudentClassTest;
 
 class ClassTestsController extends Controller
 {
@@ -16,9 +17,24 @@ class ClassTestsController extends Controller
      */
     public function index(ClassTeaching $classTeaching)
     {
+        $studentId = \Auth::user()->userable->id;
         $results = ClassTest::where('class_teaching_id', $classTeaching->id)
-            ->byStudent(\Auth::user()->userable->id)
+            ->byStudent($studentId)
             ->get();
+
+        $results = array_map(function ($classTest) use($studentId){
+            $studentClassTest = StudentClassTest::where('class_test_id', $classTest['id'])
+                ->where('student_id', $studentId)
+                ->first();
+            if($studentClassTest){
+                $classTest['student_class_test']['id'] = $studentClassTest->id;
+                if(ClassTest::greatherDateEnd30Minutes($classTest['date_end'])){
+                    $classTest['student_class_test']['point'] = $studentClassTest->point;
+                }
+            }
+            return $classTest;
+        }, $results->toArray());
+
         return $results;
     }
 

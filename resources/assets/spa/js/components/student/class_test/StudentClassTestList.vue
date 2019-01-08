@@ -26,7 +26,10 @@
                     <td>{{classTest.date_end}}</td>
                     <td>{{classTest.total_questions}}</td>
                     <td>{{classTest.total_points}}</td>
-                    <td>00</td>
+                    <td v-if="classTest.student_class_test">
+                        {{classTest.student_class_test.point}}
+                    </td>
+                    <td v-else></td>
                     <td>
                         <router-link :to="routeClassTestDo(classTest)">
                             Começar

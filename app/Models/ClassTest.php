@@ -85,6 +85,12 @@ class ClassTest extends Model
         $this->delete();
     }
 
+    public static function greatherDateEnd30Minutes($dateEnd)
+    {
+        $dateEnd = (new Carbon($dateEnd))->addMinutes(30);
+        return (new Carbon())->greaterThanOrEqualTo($dateEnd);
+    }
+
     public function toArray()
     {
         $data = parent::toArray();
