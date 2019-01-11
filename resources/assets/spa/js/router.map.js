@@ -94,7 +94,7 @@ export default [
             },
             {
                 name: 'student.class_tests.do',
-                path: 'classes/:class_information/teachings/:class_teaching/tests/:class_test/do',
+                path: 'classes/:class_information/teachings/:class_teaching/tests/:class_test/do/:student_class_test?',
                 component: require('./components/student/class_test/StudentClassTestDo.vue'),
                 meta: {
                     auth: true

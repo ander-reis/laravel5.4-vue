@@ -1,8 +1,7 @@
 <template>
     <div class="row" v-if="question">
         <h3>Questão #{{questionIndex+1}}</h3>
-        <!--<div class="panel" :class="panelColor()">-->
-        <div class="panel panel-primary">
+        <div class="panel" :class="panelColor()">
             <div class="panel-heading">
                 {{question.question}} - {{question.point}}
             </div>
@@ -33,9 +32,9 @@
             choices(){
                 return store.state.student.studentClassTest.studentClassTest.choices;
             },
-            // studentClassTest(){
-            //     return store.state.student.studentClassTest.studentClassTest;
-            // },
+            studentClassTest(){
+                return store.state.student.studentClassTest.studentClassTest;
+            },
         },
         methods: {
             setChoiceTrue(choice){
@@ -46,19 +45,19 @@
                     'active': this.choices[this.question.id] == choice.id
                 }
             },
-        //     panelColor(){
-        //         let classes = [];
-        //         if(!this.studentClassTest.id){
-        //             classes.push('panel-primary');
-        //         }else{
-        //             if(store.getters['student/classTest/isTrue'](this.question,this.choices[this.question.id])){
-        //                 classes.push('panel-success');
-        //             }else{
-        //                 classes.push('panel-danger');
-        //             }
-        //         }
-        //         return classes;
-        //     }
+            panelColor(){
+                let classes = [];
+                if(!this.studentClassTest.id){
+                    classes.push('panel-primary');
+                }else{
+                    if(store.getters['student/classTest/isTrue'](this.question, this.choices[this.question.id])){
+                        classes.push('panel-success');
+                    }else{
+                        classes.push('panel-danger');
+                    }
+                }
+                return classes;
+            }
         }
     }
 </script>

@@ -27,7 +27,7 @@ const actions = {
             })
     },
     create(context, classTestId){
-        return Student.studentClassTest.save({class_test: classTestId},context.state.studentClassTest)
+        return Student.studentClassTest.save({class_test: classTestId}, context.state.studentClassTest)
     }
 };
 

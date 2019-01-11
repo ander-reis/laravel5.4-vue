@@ -21,7 +21,7 @@
                         </small>
                     </h3>
                 </div>
-                <button class="btn btn-primary btn-block" @click="save">Salvar</button>
+                <button class="btn btn-primary btn-block" @click="save" v-if="!studentClassTest.id">Salvar</button>
             </div>
             <div class="col-md-9" v-if="classTest">
                 <ol class="nav nav-pills">
@@ -68,35 +68,27 @@
                 let classTest = this.classTest;
                 return classTest ? this.$options.filters.dateTimeBr(classTest.date_end) : '';
             },
-            // studentClassTest(){
-            //     return store.state.student.studentClassTest.studentClassTest;
-            // },
-            // choices(){
-            //     return this.studentClassTest.choices;
-            // }
-
-            /**
-             * depois retirar
-             * @returns {state.studentClassTest.choices|{}}
-             */
-            choices(){
-                return store.state.student.studentClassTest.studentClassTest.choices;
+            studentClassTest(){
+                return store.state.student.studentClassTest.studentClassTest;
             },
+            choices(){
+                return this.studentClassTest.choices;
+            }
         },
         mounted() {
             let classTeachingId = this.$route.params.class_teaching;
             let classInformationId = this.$route.params.class_information;
             let classTestId = this.$route.params.class_test;
-            // let studentClassTestId = this.$route.params.student_class_test;
+            let studentClassTestId = this.$route.params.student_class_test;
             store.dispatch('student/classTeaching/get', {classInformationId, classTeachingId});
             store.dispatch('student/classTest/get', {classTeachingId, classTestId})
                 .then(() => {
                     let question = this.classTest.questions[0];
                     store.commit('student/classTest/setQuestion',question);
                 });
-            // if(studentClassTestId){
-            //     store.dispatch('student/studentClassTest/get',{classTestId,studentClassTestId});
-            // }
+            if(studentClassTestId){
+                store.dispatch('student/studentClassTest/get', {classTestId, studentClassTestId});
+            }
         },
         methods: {
             setQuestion(question){
@@ -106,44 +98,44 @@
                 return {
                     'label-default': !this.choices.hasOwnProperty(question.id),
                     'label-primary': this.choices.hasOwnProperty(question.id),
-                    // 'label-success': store.getters['student/classTest/isTrue'](question,this.choices[question.id]),
-                    // 'label-danger': this.studentClassTest.id && !store.getters['student/classTest/isTrue'](question,this.choices[question.id])
+                    'label-success': store.getters['student/classTest/isTrue'](question, this.choices[question.id]),
+                    'label-danger': this.studentClassTest.id && !store.getters['student/classTest/isTrue'](question, this.choices[question.id])
                 }
             },
             save() {
-            //     let classTeachingId = this.$route.params.class_teaching;
-            //     let classInformationId = this.$route.params.class_information;
-            //     let afterSave = () => {
-            //         new PNotify({
-            //             title: 'Informação',
-            //             text: 'Avaliação salva com sucesso',
-            //             styling: 'brighttheme',
-            //             type: 'success'
-            //         });
-            //         this.$router.push({
-            //             name: 'student.class_tests.list',
-            //             params: {
-            //                 class_information: classInformationId,
-            //                 class_teaching: classTeachingId,
-            //             }
-            //         });
-            //     };
-            //     let error = (responseError) => {
-            //         let messageError = 'Não foi possível realizar a operação! Tente novamente.';
-            //         switch (responseError.status) {
-            //             case 422:
-            //                 messageError = 'Informações inválidas! Verifique os dados da avaliação novamente.'
-            //                 break;
-            //         }
-            //         new PNotify({
-            //             title: 'Mensagem de erro',
-            //             text: messageError,
-            //             styling: 'brighttheme',
-            //             type: 'error'
-            //         });
-            //     };
-            //     store.dispatch('student/studentClassTest/create', this.$route.params.class_test)
-            //         .then(afterSave, error);
+                let classTeachingId = this.$route.params.class_teaching;
+                let classInformationId = this.$route.params.class_information;
+                let afterSave = () => {
+                    new PNotify({
+                        title: 'Informação',
+                        text: 'Avaliação salva com sucesso',
+                        styling: 'brighttheme',
+                        type: 'success'
+                    });
+                    this.$router.push({
+                        name: 'student.class_tests.list',
+                        params: {
+                            class_information: classInformationId,
+                            class_teaching: classTeachingId,
+                        }
+                    });
+                };
+                let error = (responseError) => {
+                    let messageError = 'Não foi possível realizar a operação! Tente novamente.';
+                    switch (responseError.status) {
+                        case 422:
+                            messageError = 'Informações inválidas! Verifique os dados da avaliação novamente.'
+                            break;
+                    }
+                    new PNotify({
+                        title: 'Mensagem de erro',
+                        text: messageError,
+                        styling: 'brighttheme',
+                        type: 'error'
+                    });
+                };
+                store.dispatch('student/studentClassTest/create', this.$route.params.class_test)
+                    .then(afterSave, error);
             }
         }
     }

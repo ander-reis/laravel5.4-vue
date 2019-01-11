@@ -38,7 +38,15 @@ const actions = {
     },
 };
 
+const getters = {
+    isTrue: (state, getters) => (question, choiceId) => {
+        return question.choices.some((choice) => {
+            return choice.true && choice.id == choiceId;
+        });
+    }
+};
+
 export default {
     namespaced: true,
-    state, mutations, actions
+    state, mutations, actions, getters
 }

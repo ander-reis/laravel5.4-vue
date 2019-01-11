@@ -20,7 +20,7 @@ class ClassTestsTableSeeder extends Seeder
         /**
          * Criando avaliação para o professor de testes teacher@user.com
          */
-        factory(ClassTest::class,30)
+        factory(ClassTest::class, 30)
             ->make()
             ->each(function (ClassTest $model) use($classTeachings,$teacherDefault,$self){
                 $classTeaching = $classTeachings
