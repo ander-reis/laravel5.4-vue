@@ -100,6 +100,14 @@ export default [
                     auth: true
                 }
             },
+            {
+                name: 'student.chart.per_subject',
+                path: 'classes/:class_information/teachings/:class_teaching/charts/per_subject',
+                component: require('./components/student/chart/StudentChartPerSubject.vue'),
+                meta: {
+                    auth: true
+                }
+            },
         ]
     },
     {

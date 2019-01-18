@@ -27,6 +27,8 @@ npm install pnotify@3.2.0 --save-dev
 vue-router
 npm install vue-router --save-dev
 
+scriptjs
+npm install scriptjs --save-dev
 
 
 /**************************************

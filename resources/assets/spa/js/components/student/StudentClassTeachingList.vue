@@ -21,6 +21,10 @@
                         <router-link :to="{name: 'student.class_tests.list', params: {class_teaching: classTeaching.id} }">
                             Avaliações
                         </router-link>
+                        |
+                        <router-link :to="{name: 'student.chart.per_subject', params: {class_teaching: classTeaching.id}}">
+                            Aproveitamento
+                        </router-link>
                     </td>
                 </tr>
                 </tbody>
