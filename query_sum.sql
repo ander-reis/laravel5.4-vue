@@ -1,0 +1,1 @@
+select sum(`point`), questions.class_test_id from questions group by questions.class_test_id
