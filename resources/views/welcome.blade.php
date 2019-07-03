@@ -73,6 +73,7 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('app') }}">App Vue</a>
                     @endif
                 </div>
             @endif
@@ -81,7 +82,6 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
