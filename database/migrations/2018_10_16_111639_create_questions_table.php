@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->text('question');
             $table->float('point');
             $table->integer('class_test_id')->unsigned();
-            $table->foreign('class_test_id')->references('id')->on('class_tests');
+            $table->foreign('class_test_id')->references('id')->on('class_tests')->onDelete('cascade');
             $table->timestamps();
         });
     }

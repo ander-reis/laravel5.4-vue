@@ -19,7 +19,7 @@ class CreateClassTestsTable extends Migration
             $table->dateTime('date_end');
             $table->string('name');
             $table->integer('class_teaching_id')->unsigned();
-            $table->foreign('class_teaching_id')->references('id')->on('class_teachings');
+            $table->foreign('class_teaching_id')->references('id')->on('class_teachings')->onDelete('cascade');
             $table->timestamps();
         });
     }

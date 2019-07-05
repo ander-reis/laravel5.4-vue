@@ -12,9 +12,8 @@ class TeachersController extends Controller
     {
         $search = $request->input('q');
 
-        return $search ? Teacher::whereHas('user', function($query) use($search){
-            $query->where('users.name', 'LIKE', '%'.$search.'%');
-        })->take(10)->get():[];
-
+        return $search ? Teacher::whereHas('user', function ($query) use ($search) {
+            $query->where('users.name', 'like', '%' . $search . '%');
+        })->take(10)->get() : [];
     }
 }

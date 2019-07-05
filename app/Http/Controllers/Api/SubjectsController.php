@@ -12,7 +12,7 @@ class SubjectsController extends Controller
     {
         $search = $request->input('q');
 
-        return $search ? Subject::where('name','LIKE', '%'.$search.'%')->get() : [];
+        return $search ? Subject::where('name','like', '%'.$search.'%')->get() : [];
 
     }
 }

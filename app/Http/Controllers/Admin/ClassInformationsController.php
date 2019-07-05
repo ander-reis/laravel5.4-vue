@@ -120,6 +120,7 @@ class ClassInformationsController extends Controller
     public function destroy(ClassInformation $class_information)
     {
         $class_information->delete();
+
         session()->flash('message','Turma excluída com sucesso');
         return redirect()->route('admin.class_informations.index');
     }

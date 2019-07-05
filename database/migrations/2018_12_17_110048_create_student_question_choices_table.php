@@ -17,13 +17,13 @@ class CreateStudentQuestionChoicesTable extends Migration
             $table->increments('id');
 
             $table->integer('question_id')->unsigned();
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
 
             $table->integer('question_choice_id')->unsigned();
-            $table->foreign('question_choice_id')->references('id')->on('question_choices');
+            $table->foreign('question_choice_id')->references('id')->on('question_choices')->onDelete('cascade');
 
             $table->integer('student_class_test_id')->unsigned();
-            $table->foreign('student_class_test_id')->references('id')->on('student_class_tests');
+            $table->foreign('student_class_test_id')->references('id')->on('student_class_tests')->onDelete('cascade');
 
             $table->timestamps();
         });
